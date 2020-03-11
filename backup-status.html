@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Backup Monitor</title>
+    <meta name="robots" content="none" />
+    <meta name="description" content="Backup status monitor for Tanmay" />
+    <meta name="Author" content="Tanmay Mudholkar" />
+    <meta http-equiv="refresh" content="21600" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="backup-webpage-scripts.js"></script>
+  </head>
+
+  <body onload="updateTimeInfo()">
+    <iframe src="backup_logs/daily_latest_timestamp.txt" style="display:none" id="dailyLatestTimestampFrame"></iframe>
+    <iframe src="backup_logs/weekly_latest_timestamp.txt" style="display:none" id="weeklyLatestTimestampFrame"></iframe>
+    <span style="display:none" id="currentTimestampSpan"></span>
+    <span style="display:none" id="dailyLatestTimestampSpan"></span>
+    <span style="display:none" id="weeklyLatestTimestampSpan"></span>
+    <center>
+      <p>
+        Current time: <span id="currentTimeSpan"></span>
+      </p>
+    </center>
+
+    <div class="split left">
+      <h2>Hardware monitors</h2>
+      <div class="boxedSmartctlLogsContainer">
+        <h4> Drive status, local:</h4>
+        <iframe onload="resizeIFrame(this)" src="smartctl_logs/smartctl_laptop_short.txt" class="smartctl_short_output" height="50px"></iframe>
+        <h4> Drive status, remote:</h4>
+        <iframe onload="resizeIFrame(this)" src="smartctl_logs/smartctl_externalhd_short.txt" class="smartctl_short_output" height="50px"></iframe>
+      </div>
+      <h4> Laptop hard-drive monitor:</h4>
+      <iframe onload="resizeIFrame(this)" src="smartctl_logs/smartctl_laptop_long.txt" class="smartctl_long_output"></iframe>
+      <h4> External hard-drive monitor:</h4>
+      <iframe onload="resizeIFrame(this)" src="smartctl_logs/smartctl_externalhd_long.txt" class="smartctl_long_output"></iframe>
+    </div>
+
+    <div class="split right">
+      <h2>Backup logs</h2>
+      <div class="boxedBackupTimes">
+        <h4 id="dailyBackupText"> Last daily backup: <span id="lastDailyBackupTimeSpan"></span> (<span id="lastDailyBackupTimeDifferenceSpan"></span> ago) </h4>
+        <h4 id="weeklyBackupText"> Last weekly backup: <span id="lastWeeklyBackupTimeSpan"></span> (<span id="lastWeeklyBackupTimeDifferenceSpan"></span> ago) </h4>
+      </div>
+      <h4> Latest backup log:</h4>
+      <iframe onload="resizeIFrame(this)" src="backup_logs/latest.log" class="backup_log"></iframe>
+    </div>
+  </body>
+</html>
