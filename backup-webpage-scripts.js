@@ -80,24 +80,26 @@ function setAlarmFromTimestamp(targetElementID, currentTimestampSpanID, spanIDOf
     }
 }
 
-function setUpdateTimeInfoInterval() { // refresh timestamps every 10 minutes
-    setInterval(updateTimeInfo, 1000*60*10);
-}
-
-function updateTimeInfo() {
+function updateCurrentTimeInfo() {
     setCurrentTimeSpan("currentTimestampSpan");
     setTimeFromTimestamp("currentTimeSpan", "currentTimestampSpan");
-    setTimestampFromFile("dailyLatestTimestampSpan", "dailyLatestTimestampFrame");
-    setTimestampFromFile("weeklyLatestTimestampSpan", "weeklyLatestTimestampFrame");
-    setTimeFromTimestamp("lastDailyBackupTimeSpan", "dailyLatestTimestampSpan");
-    setTimeFromTimestamp("lastWeeklyBackupTimeSpan", "weeklyLatestTimestampSpan");
     setTimeDifferenceWRTTimestamp("lastDailyBackupTimeDifferenceSpan", "currentTimestampSpan", "dailyLatestTimestampSpan");
     setTimeDifferenceWRTTimestamp("lastWeeklyBackupTimeDifferenceSpan", "currentTimestampSpan", "weeklyLatestTimestampSpan");
     setAlarmFromTimestamp("dailyBackupText", "currentTimestampSpan", "dailyLatestTimestampSpan", 1000*60*60*24);
     setAlarmFromTimestamp("weeklyBackupText", "currentTimestampSpan", "weeklyLatestTimestampSpan", 1000*60*60*24*7);
 }
 
+function refreshContents() {
+    location.reload(true);
+    setTimestampFromFile("dailyLatestTimestampSpan", "dailyLatestTimestampFrame");
+    setTimestampFromFile("weeklyLatestTimestampSpan", "weeklyLatestTimestampFrame");
+    setTimeFromTimestamp("lastDailyBackupTimeSpan", "dailyLatestTimestampSpan");
+    setTimeFromTimestamp("lastWeeklyBackupTimeSpan", "weeklyLatestTimestampSpan");
+    updateCurrentTimeInfo();
+}
+
 function toExecuteOnLoad() {
-    updateTimeInfo();
-    setUpdateTimeInfoInterval();
+    updateCurrentTimeInfo();
+    setInterval(refreshContents, 1000*60*60*2); // refresh info based on logged timestamps every two hours
+    setInterval(updateCurrentTimeInfo, 1000*60*10); // refresh info based on current time every 10 minutes
 }
