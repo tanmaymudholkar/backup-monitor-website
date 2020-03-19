@@ -80,6 +80,10 @@ function setAlarmFromTimestamp(targetElementID, currentTimestampSpanID, spanIDOf
     }
 }
 
+function setUpdateTimeInfoInterval() { // refresh timestamps every 10 minutes
+    setInterval(updateTimeInfo, 1000*60*10);
+}
+
 function updateTimeInfo() {
     setCurrentTimeSpan("currentTimestampSpan");
     setTimeFromTimestamp("currentTimeSpan", "currentTimestampSpan");
@@ -91,4 +95,9 @@ function updateTimeInfo() {
     setTimeDifferenceWRTTimestamp("lastWeeklyBackupTimeDifferenceSpan", "currentTimestampSpan", "weeklyLatestTimestampSpan");
     setAlarmFromTimestamp("dailyBackupText", "currentTimestampSpan", "dailyLatestTimestampSpan", 1000*60*60*24);
     setAlarmFromTimestamp("weeklyBackupText", "currentTimestampSpan", "weeklyLatestTimestampSpan", 1000*60*60*24*7);
+}
+
+function toExecuteOnLoad() {
+    updateTimeInfo();
+    setUpdateTimeInfoInterval();
 }

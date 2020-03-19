@@ -5,13 +5,13 @@
     <meta name="robots" content="none" />
     <meta name="description" content="Backup status monitor for Tanmay" />
     <meta name="Author" content="Tanmay Mudholkar" />
-    <meta http-equiv="refresh" content="21600" />
+    <meta http-equiv="refresh" content="7200" /> <!-- refresh webpage every two hours -->
     <link rel="icon" type="image/svg+xml" href="img/favicon.svg"/>
     <link rel="stylesheet" href="styles.css" />
     <script src="backup-webpage-scripts.js"></script>
   </head>
 
-  <body onload="updateTimeInfo()">
+  <body onload="toExecuteOnLoad()">
     <iframe src="backup_logs/daily_latest_timestamp.txt" style="display:none" id="dailyLatestTimestampFrame"></iframe>
     <iframe src="backup_logs/weekly_latest_timestamp.txt" style="display:none" id="weeklyLatestTimestampFrame"></iframe>
     <span style="display:none" id="currentTimestampSpan"></span>
